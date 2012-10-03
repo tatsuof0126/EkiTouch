@@ -1,0 +1,49 @@
+<h1>Listing stations</h1>
+
+<table>
+  <tr>
+    <th>Rr cd</th>
+    <th>Line cd</th>
+    <th>Station cd</th>
+    <th>Line sort</th>
+    <th>Station sort</th>
+    <th>Station g cd</th>
+    <th>R type</th>
+    <th>Rr name</th>
+    <th>Line name</th>
+    <th>Station name</th>
+    <th>Pref cd</th>
+    <th>Lon</th>
+    <th>Lat</th>
+    <th>F flag</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stations.each do |station| %>
+  <tr>
+    <td><%= station.rr_cd %></td>
+    <td><%= station.line_cd %></td>
+    <td><%= station.station_cd %></td>
+    <td><%= station.line_sort %></td>
+    <td><%= station.station_sort %></td>
+    <td><%= station.station_g_cd %></td>
+    <td><%= station.r_type %></td>
+    <td><%= station.rr_name %></td>
+    <td><%= station.line_name %></td>
+    <td><%= station.station_name %></td>
+    <td><%= station.pref_cd %></td>
+    <td><%= station.lon %></td>
+    <td><%= station.lat %></td>
+    <td><%= station.f_flag %></td>
+    <td><%= link_to 'Show', station %></td>
+    <td><%= link_to 'Edit', edit_station_path(station) %></td>
+    <td><%= link_to 'Destroy', station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Station', new_station_path %>

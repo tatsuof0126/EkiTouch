@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  rr_cd: 1
+  line_cd: 1
+  station_cd: 1
+  line_sort: 1
+  station_sort: 1
+  station_g_cd: 1
+  r_type: 1
+  rr_name: MyString
+  line_name: MyString
+  station_name: MyString
+  pref_cd: 1
+  lon: 1.5
+  lat: 1.5
+  f_flag: 1
+
+two:
+  rr_cd: 1
+  line_cd: 1
+  station_cd: 1
+  line_sort: 1
+  station_sort: 1
+  station_g_cd: 1
+  r_type: 1
+  rr_name: MyString
+  line_name: MyString
+  station_name: MyString
+  pref_cd: 1
+  lon: 1.5
+  lat: 1.5
+  f_flag: 1
