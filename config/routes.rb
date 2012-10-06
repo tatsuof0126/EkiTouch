@@ -5,6 +5,8 @@ EkiTouch::Application.routes.draw do
 
   match 'neareststation' => 'near_station#findnearest'
 
+  match 'registstations' => 'regist_bulk_stations#create'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

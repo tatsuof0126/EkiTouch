@@ -11,10 +11,11 @@ class NearStationController < ApplicationController
     
     for station in stations do 
       distance = calcdistance(herelat, herelon, station.lat, station.lon)
-      
+
       p distance
       
       if nearestdistance > distance 
+        station.distance = distance
         neareststation = station
         nearestdistance = distance        
       end
@@ -35,17 +36,20 @@ class NearStationController < ApplicationController
     stations = Station.all
     
     nearstations = []
-    neardistance = 1000 # 近いと見なす距離
+    neardistance = 2000 # 近いと見なす距離
     
     for station in stations do 
       distance = calcdistance(herelat, herelon, station.lat, station.lon)
 
-      p '---' 
-      p station.station_name
-      p distance
+#      p '---' 
+#      p station.station_name
+#      p distance
       
-      if neardistance > distance 
+      if neardistance > distance
+        station.distance = distance
         nearstations << station
+        p station.station_name
+        p station.distance
         p 'added'
       end
     end
