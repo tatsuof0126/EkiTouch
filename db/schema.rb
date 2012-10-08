@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813154736) do
+ActiveRecord::Schema.define(:version => 20121008013305) do
 
   create_table "stations", :force => true do |t|
     t.integer  "rr_cd"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20120813154736) do
     t.float    "lon"
     t.float    "lat"
     t.integer  "f_flag"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "touches", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "station_id"
+    t.datetime "touched_date"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

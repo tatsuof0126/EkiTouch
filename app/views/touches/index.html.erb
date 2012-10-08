@@ -1,0 +1,27 @@
+<h1>Listing touches</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Station</th>
+    <th>Touched date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @touches.each do |touch| %>
+  <tr>
+    <td><%= touch.user_id %></td>
+    <td><%= touch.station_id %></td>
+    <td><%= touch.touched_date %></td>
+    <td><%= link_to 'Show', touch %></td>
+    <td><%= link_to 'Edit', edit_touch_path(touch) %></td>
+    <td><%= link_to 'Destroy', touch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Touch', new_touch_path %>

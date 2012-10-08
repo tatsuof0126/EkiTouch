@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @touch.user_id %>
+</p>
+
+<p>
+  <b>Station:</b>
+  <%= @touch.station_id %>
+</p>
+
+<p>
+  <b>Touched date:</b>
+  <%= @touch.touched_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_touch_path(@touch) %> |
+<%= link_to 'Back', touches_path %>

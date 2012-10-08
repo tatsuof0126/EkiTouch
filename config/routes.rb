@@ -1,12 +1,15 @@
 EkiTouch::Application.routes.draw do
+  resources :touches
+  match 'touchhistory' => 'touches#history'
+
   resources :stations
 
   match 'nearstations' => 'near_station#find'
-
   match 'neareststation' => 'near_station#findnearest'
 
   match 'registstations' => 'regist_bulk_stations#create'
 
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
