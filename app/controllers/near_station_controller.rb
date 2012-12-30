@@ -80,8 +80,10 @@ class NearStationController < ApplicationController
         p station.station_name
         p station.distance
         p 'added'
-      end
+      end      
     end
+    
+    nearstations.sort! {|a, b| a.distance <=> b.distance }
     
     render json: nearstations
   end
