@@ -2,50 +2,41 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Eki Touch</title>
+    <title>近くの駅検索</title>
     <script type="text/javascript">
       if (navigator.geolocation) {
         // 現在の位置情報を取得
         navigator.geolocation.getCurrentPosition(
-        // 位置情報の取得に成功
-        function (pos) {
-          var location = "";
-          location += "<li>"+"緯度：" + pos.coords.latitude + "</li>";
-          location += "<li>"+"経度：" + pos.coords.longitude + "</li>";
-          document.getElementById("location").innerHTML = location;
+          // 位置情報の取得に成功
+          function (pos) {
+            var location = "";
+            location += "<li>"+"緯度：" + pos.coords.latitude + "</li>";
+            location += "<li>"+"経度：" + pos.coords.longitude + "</li>";
+            document.getElementById("location").innerHTML = location;
           
-          var reqpath = "nearstations?herelat="+pos.coords.latitude+"&herelon="+pos.coords.longitude+"&distance=2000";
-          httpObj = new XMLHttpRequest();
-          httpObj.open('GET',reqpath,true);
-          httpObj.send(null);
-          httpObj.onreadystatechange = function(){
-            if( ( httpObj.readyState == 4) && (httpObj.status == 200)){
-            	var nearstationstext = shownearstations(httpObj.responseText);
+            var reqpath = "nearstations?herelat="+pos.coords.latitude+"&herelon="+pos.coords.longitude+"&distance=2000";
+            httpObj = new XMLHttpRequest();
+            httpObj.open('GET',reqpath,true);
+            httpObj.send(null);
+            httpObj.onreadystatechange = function(){
+              if( httpObj.readyState == 4 && httpObj.status == 200 ){
+             	var nearstationstext = shownearstations(httpObj.responseText);
    	            document.getElementById("nearstations").innerHTML = nearstationstext;
+              } else {
+   	            document.getElementById("nearstations").innerHTML = "駅情報の取得に失敗しました";
+              }
             }
+          },
+          // 位置情報の取得に失敗
+          function (error) {
+            document.getElementById("location").innerHTML = "位置情報の取得に失敗しました";
+            document.getElementById("nearstations").innerHTML = "駅情報の取得に失敗しました";
           }
-        },
-        // 位置情報の取得に失敗
-        function (error) {
-          var message = "";
-          switch (error.code) {
-            // 位置情報が取得できない場合
-            case error.POSITION_UNAVAILABLE:
-              message = "位置情報の取得ができませんでした。";
-              break;
-            // Geolocationの使用が許可されない場合
-            case error.PERMISSION_DENIED:
-              message = "位置情報取得の使用許可がされませんでした。";
-              break;
-            // タイムアウトした場合
-            case error.PERMISSION_DENIED_TIMEOUT:
-              message = "位置情報取得中にタイムアウトしました。";
-              break;
-          }
-          window.alert(message);
-        });
+        );
       } else {
-        window.alert("本ブラウザではGeolocationが使えません");
+        // そもそも位置情報が取れないブラウザの場合
+        document.getElementById("location").innerHTML = "このブラウザでは位置情報が取得できません";
+        document.getElementById("nearstations").innerHTML = "駅情報の取得に失敗しました";
       }
       
       function shownearstations(jsonData){
@@ -53,39 +44,39 @@
         var resultData = "<table border='0'><tr><th>名前</th><th>距離</th><th></th></tr>";
         
         for(var i=0; i<data.length; i++){
-		  var name = data[i].station_name+"駅";
+		  var name = data[i].line_name+" "+data[i].station_name+"駅";
 		  var distance = Math.round(data[i].distance);
 		  var lat  = data[i].lat;
 		  var lon  = data[i].lon;
 		  var link = "http://maps.google.co.jp/maps?q="+lat+","+lon+"("+name+")&hl=ja&z=18";
-		  resultData += "<tr><td><a href='#' onclick='jinjadetail(000000000496);return false;'>"+name+"</a></td><td style='text-align:right'>"+distance+"ｍ</td><td><a href='"+link+"' target='_blank'>"+"地図"+"</a></td></tr>";
+		  resultData += "<tr><td><a href='#' onclick=\"jinjadetail('000000000496');return false;\">"+name+"</a></td><td style='text-align:right'>"+distance+"ｍ</td><td><a href='"+link+"' target='_blank'>"+"地図"+"</a></td></tr>";
 		}		
 		resultData += "</table>";
 		return resultData;
       }
       
       function jinjadetail(jid){
-      	document.detailform.j_id = jid; 
+      	document.detailform.j_id.value = jid;
       	document.detailform.submit();
       }
-      
     </script>
   </head>
   <body>
-  	<h2>Eki Touch</h2>
+  	<h2>近くの駅検索</h2>
+  	
     現在地
     <ul id="location">
     	位置情報取得中．．．
     </ul>
     <br />
     
-    近くの駅
+    近くの駅（2km以内）
     <ul id="nearstations">
     	情報取得中．．．
     </ul>
     
   	<form name="detailform" action="http://www.jinjya.com/user/details01.php" method="post">
-  	  <input type="hidden" name="j_id" value="000000000496">
+  	  <input type="hidden" name="j_id" value="">
   	</form>
   	  	
   </body>
